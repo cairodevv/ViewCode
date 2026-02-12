@@ -53,6 +53,7 @@ public:
 };
 
 class IfDefined : public Block {
+public:
     explicit IfDefined(/* implement header define enum */ auto define)
     : Block(
         "ifdefined",
@@ -69,6 +70,7 @@ class IfDefined : public Block {
 };
 
 class Define : public Block {
+public:
     explicit Define(/* implement header define enum */ auto define)
     : Block(
         "define",
@@ -85,6 +87,7 @@ class Define : public Block {
 };
 
 class Loop : public Block {
+public:
     explicit Loop(int length)
     : Block(
     "loop",
