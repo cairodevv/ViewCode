@@ -1,4 +1,5 @@
 #include "types.h"
+#include "compile.h"
 //One text parameter, for non enclosed blocks
 Block::Block(
     std::string name,
@@ -12,7 +13,7 @@ blockType(blockType),
 text(std::move(text), ""),
 parameters(std::move(parameters))
 {
-
+    activeBlocks.push_back(this);
 }
 
 //multi-text parameter, for enclosed blocks
