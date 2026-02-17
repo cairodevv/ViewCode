@@ -3,8 +3,21 @@
 
 #include <stdexcept>
 #include "types/types.h"
+#include <string>
 #include <typeinfo>
 
+/*
+ All implemented blocks:
+ Print
+ Include
+ IfNotDefined
+ IfDefined
+ Define
+ Loop
+ If
+ IfElse(needs 3rd text)
+ Elif
+ */
 class Print : public Block {
 public:
     explicit Print(std::string output)
@@ -95,5 +108,49 @@ public:
     {}
 };
 
+class If : public Block {
+public:
+    explicit If(bool condition)
+    : Block(
+        "if",
+        ENCLOSED,
+        {"if (" + std::to_string(condition) + ") {", "}"},
+        {
+            {
+                "condition",
+                typeid(condition)
+            }})
+    {}
+};
+
+class IfElse : public Block {
+public:
+    explicit IfElse(bool condition)
+    : Block(
+        "ifelse",
+        ENCLOSED,
+        {"if (" + std::to_string(condition) + ") {", "} else {"},
+        {
+            {
+                "condition",
+                typeid(condition)
+            }})
+    {}
+};
+
+class Elif : public Block {
+public:
+    explicit Elif(bool condition)
+    : Block(
+        "elif",
+        ENCLOSED,
+        {"else if (" + std::to_string(condition) + ") {", "}"},
+        {
+            {
+                "condition",
+                typeid(condition)
+            }})
+    {}
+};
 
 #endif //VIEWCODE_BLOCKS

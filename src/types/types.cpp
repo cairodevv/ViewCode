@@ -14,7 +14,7 @@ blockType(blockType),
 text(std::move(text), ""),
 parameters(std::move(parameters))
 {
-    activeBlocks.push_back(this);
+    activeBlocks.push_back(*this);
 }
 
 //multi-text parameter, for enclosed blocks
@@ -30,5 +30,5 @@ blockType(blockType),
 text(std::move(text)),
 parameters(std::move(parameters))
 {
-    activeBlocks.push_back(this);
+    activeBlocks.push_back(*this);
 }

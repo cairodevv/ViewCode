@@ -4,7 +4,7 @@
 #include "../types/types.h"
 #include <vector>
 
-extern std::vector<Block*> activeBlocks;
+extern std::vector<Block> activeBlocks;
 
 void init();
 
