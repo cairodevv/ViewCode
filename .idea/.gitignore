@@ -15,3 +15,5 @@
 /build/**
 #ignore all cache files
 /cache/
+
+compile_commands.json
