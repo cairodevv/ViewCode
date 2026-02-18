@@ -13,8 +13,8 @@ Viewcode is a locally hosted environment that allows users to build software vis
 
 ## Planned Features
 
-*   [ ] [Feature Placeholder 1, e.g., C++ Support]
-*   [ ] [Feature Placeholder 2, e.g., Dark Mode]
+*   [ ] [Multi-language support]
+*   [ ] [External libraries]
 *   [ ] [Feature Placeholder 3, e.g., Cloud Sync (Optional)]
 *   [ ] [Feature Placeholder 4]
 
