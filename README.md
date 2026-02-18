@@ -11,12 +11,6 @@ Viewcode is a locally hosted environment that allows users to build software vis
 *   **Library Support:** Import and utilize standard external libraries within the visual environment.
 *   **Local Hosting:** Runs entirely on the local machine for security and offline capability.
 
-## Roadmap
-
-*   **[Phase 1]** [Description of goal, e.g., Alpha Release] - *[Target Date]*
-*   **[Phase 2]** [Description of goal, e.g., Plugin System] - *[Target Date]*
-*   **[Phase 3]** [Description of goal, e.g., v1.0 Launch] - *[Target Date]*
-
 ## Planned Features
 
 *   [ ] [Feature Placeholder 1, e.g., C++ Support]
