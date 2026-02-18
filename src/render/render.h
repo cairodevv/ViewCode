@@ -1,6 +1,6 @@
 #ifndef RENDER
 #define RENDER
 
-void render();
+int render();
 
 #endif //RENDER
