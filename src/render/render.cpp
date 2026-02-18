@@ -79,7 +79,6 @@ int render() {
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
