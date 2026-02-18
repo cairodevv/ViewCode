@@ -13,3 +13,5 @@
 /.clangd
 # ignore all build files
 /build/**
+#ignore all cache files
+/cache/
