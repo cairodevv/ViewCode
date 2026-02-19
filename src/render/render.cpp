@@ -2,29 +2,39 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "render.h"
+#include "image.h"
 
 const char* vertexShaderSource = R"(
 #version 460 core
 layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aTexCoord;
+
+out vec2 TexCoord;
+
 void main() {
     gl_Position = vec4(aPos.x, aPos.y, 0.0f, 1.0f);
+    TexCoord = aTexCoord;
 }
 )";
 
 const char* fragmentShaderSource = R"(
 #version 460 core
+
 out vec4 FragColor;
+in vec2 TexCoord;
+uniform sampler2D ourTexture;
 void main() {
-    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    FragColor = texture(ourTexture, TexCoord);
 }
 )";
 
-float block[] {
-    -0.5f, -0.5f,
-    -0.5f, 0.5f,
-    0.5f, -0.5f,
-    0.5f, 0.5f,
+float block[] = {
+    -0.5f, -0.5f, /* bottom left */ 0.0f, 0.0f,
+    -0.5f, 0.5f, /* top left */     0.0f, 1.0f,
+    0.5f, -0.5f, /* bottom right */ 1.0f, 0.0f,
+    0.5f, 0.5f, /* top right */     1.0f, 1.0f,
 };
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -63,6 +73,17 @@ int render() {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+    stbi_set_flip_vertically_on_load(true);
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load("placeholder.png", &width, &height, &nrChannels, 0);
+    unsigned int texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage2D(GL_TEXTURE_2D, 0, (nrChannels == 4 ? GL_RGBA : GL_RGB), width, height, 0, (nrChannels == 4 ? GL_RGBA : GL_RGB), GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    stbi_image_free(data);
+
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -92,9 +113,10 @@ int render() {
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     while (!glfwWindowShouldClose(window)) {
         //input
@@ -105,6 +127,7 @@ int render() {
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(shaderProgram);
 
+        glBindTexture(GL_TEXTURE_2D, texture);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         //check and call events and swap buffers

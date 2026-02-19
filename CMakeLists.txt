@@ -15,6 +15,8 @@ add_executable(ViewCode
     src/main.cpp
     src/render/render.cpp
     src/render/render.h
+    src/render/stb_image.h
+    src/render/image.h
     src/compile/compile.cpp
     src/types/types.cpp
     src/types/types.h
