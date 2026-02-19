@@ -1,10 +1,8 @@
 #ifndef VIEWCODE_BLOCKS
 #define VIEWCODE_BLOCKS
 
-#include <stdexcept>
 #include "../types/types.h"
 #include <string>
-#include <typeinfo>
 
 /*
  All implemented blocks:
@@ -18,60 +16,15 @@
  IfElse(needs 3rd text)
  Elif
  */
-class Print : public Block {
-public:
-    explicit Print(std::string output);
-};
+class Print : public Block { public: explicit Print(std::string output); };
 
-class Include : public Block {
-public:
-    explicit Include(std::string file);
-};
+class Include : public Block { public: explicit Include(std::string file); };
 
-class IfNotDefined : public Block {
-public:
-    explicit IfNotDefined(std::string define)
-    : Block(
-        "ifnotdefined",
-        ENCLOSED,
-        {"#ifndef " + std::move(define), "#endif"},
-        {
-            {
-                "define",
-                typeid(define)
-            }})
-    {}
-};
+class IfNotDefined : public Block { public: explicit IfNotDefined(std::string define); };
 
-class IfDefined : public Block {
-public:
-    explicit IfDefined(std::string define)
-    : Block(
-        "ifdefined",
-        ENCLOSED,
-        {"#ifdef " + std::move(define), "#endif"},
-        {
-            {
-                "define",
-                typeid(define)
-            }})
-    {}
-};
+class IfDefined : public Block { public: explicit IfDefined(std::string define); };
 
-class Define : public Block {
-public:
-    explicit Define(std::string  define)
-    : Block(
-        "define",
-        HEADER,
-        {"#define " + std::move(define)},
-        {
-            {
-                "define",
-                typeid(define)
-            }})
-    {}
-};
+class Define : public Block { public: explicit Define(std::string  define); };
 
 class Loop : public Block {
 public:

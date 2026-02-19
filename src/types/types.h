@@ -32,7 +32,7 @@ struct Block {
     Block(
         std::string name,
         const BlockTypes blockType,
-        std::pair<std::string, std::string> text,
+        std::vector<std::string> text,
         std::vector<std::pair<std::string,
         const std::type_info&>> parameters
     );
